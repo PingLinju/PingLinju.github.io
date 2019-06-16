@@ -1,0 +1,1164 @@
+<!--
+	作者：Sariay
+	时间：2018-09-25
+	描述：There may be a bug, but don't worry, QiLing(器灵) says that it can work normally!
+-->
+<!DOCTYPE html>
+<html class="html-loading">
+		
+
+<head><meta name="generator" content="Hexo 3.8.0">
+	<meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+  <title>
+    
+      Ubuntu 14.04 configure Caffe | Ping Li&#39;s Blog
+    
+  </title>
+  <meta name="author" content="Ping Li">
+  <meta name="keywords" content>
+  <meta name="description" content="Love the Life You Live">
+	<!-- favicon -->
+  <link rel="shortcut icon" href="/img/favicon.ico">
+
+  <!-- css -->
+  <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/Annie.css">
+  
+  <!-- jquery -->
+	<script src="/js/jquery.min.js"></script>
+
+  <!-- leancloud -->
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+<script src="/js/leancloud.js"></script>
+</head>
+	<body>
+		<!-- Preloader -->
+
+	<div id="preloader">
+		<div class="pre-container">
+			
+				<div class="spinner">
+					<div class="double-bounce1"></div>
+					<div class="double-bounce2"></div>
+				</div>
+						
+		</div>
+	</div>
+
+
+<!-- header -->
+<header class="fixbackground" data-img-mode="random" data-normal-src="/img/1.jpg" data-random-max="110" data-random-src="/img/galleries/">
+	<div class="mask">
+		<!-- Logo and navigation -->
+		<div class="h-header">
+			<div id="logo">
+				<a href="/">
+						
+						<img src="/img/logo.png" alt="Logo">
+					
+				</a>
+			</div>
+			
+			<div id="navigation-show">
+				<ul>
+	
+		<li class="menu-home">
+			<a href="/" class="menu-item-home">主页</a>
+		</li>
+	
+		<li class="menu-archive">
+			<a href="/archives" class="menu-item-archive">归档</a>
+		</li>
+	
+		<li class="menu-categories">
+			<a href="/categories" class="menu-item-categories">分类</a>
+		</li>
+	
+		<li class="menu-tags">
+			<a href="/tags" class="menu-item-tags">标签</a>
+		</li>
+	
+		<li class="menu-gallery">
+			<a href="/gallery" class="menu-item-gallery">相册</a>
+		</li>
+	
+
+	
+		<li class="menu-search">
+			<a href="javascript:;" class="popup-trigger">搜索</a>
+		</li>
+	
+</ul>
+			</div>				
+		</div>
+
+		<!-- motto -->
+		<div class="h-body">	
+			
+				<p class="motto"></p>
+			
+		</div>
+		
+		<!-- others: such as time... -->			
+		<div class="h-footer">
+			<a href="javascript:;" id="read-more"><i class="fa fa-angle-double-down" aria-hidden="true"></i>
+			</a>
+
+			
+				<!-- 
+	This is only a demo, please go to "https://time.is" to set your city time! 
+-->
+<style type="text/css">
+	.header-date {
+		font-size: 1.6rem;
+		color: #fff;
+		position: absolute;
+		bottom: 5px;
+		right: 1rem;
+		writing-mode: tb-rl;
+	}	
+	
+	.header-date a {
+		border-bottom: none;
+	}
+
+	@media only screen and (max-width: 768 ) {
+		.header-date {
+			font-size: 1rem;
+		}			
+	}
+</style>
+<div class="header-date">
+	<a href="https://time.is/Beijing" id="time_is_link" rel="nofollow"></a>
+	<span id="Beijing_z43d"></span>
+</div>
+<script src="//widget.time.is/zh.js"></script>
+<script>
+	time_is_widget.init({
+		Beijing_z43d:{
+			template:"DATE", 
+			date_format:"year年 monthname dnum日"
+		}
+	});
+</script>
+			
+		</div>
+	</div>
+</header>
+
+<div id="navigation-hide">
+	<!-- Progress bar -->
+	<div id="progress-bar"></div>
+
+	<!-- Progress percent -->
+	<div id="progress-percentage"><h1>0.0%</h1></div>
+
+	<div class="toc-switch"><span class="switch-button">目录</span></div>
+
+	<!-- Page title -->
+	<p>
+		
+			当前文章&nbsp;:&nbsp;《Ubuntu 14.04 configure Caffe》
+		
+	</p>
+
+	<!-- Nav trigger for navigation-H-->
+	<a class="nav-trigger"><span></span></a>
+</div>
+
+<!-- Navigation in div(id="navigation-H") -->
+<nav class="nav-container" id="cd-nav">
+	<div class="nav-header">
+		<h3>Navigation</h3>
+		<a href="javascript:;" class="nav-close"></a>
+	</div>
+	<div class="nav-body">
+		<ul>
+	
+		<li class="menu-home">
+			<a href="/" class="menu-item-home">主页</a>
+		</li>
+	
+		<li class="menu-archive">
+			<a href="/archives" class="menu-item-archive">归档</a>
+		</li>
+	
+		<li class="menu-categories">
+			<a href="/categories" class="menu-item-categories">分类</a>
+		</li>
+	
+		<li class="menu-tags">
+			<a href="/tags" class="menu-item-tags">标签</a>
+		</li>
+	
+		<li class="menu-gallery">
+			<a href="/gallery" class="menu-item-gallery">相册</a>
+		</li>
+	
+
+	
+		<li class="menu-search">
+			<a href="javascript:;" class="popup-trigger">搜索</a>
+		</li>
+	
+</ul>
+	</div>
+	<div class="nav-footer">
+		<ul>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-github"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-weibo"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-pinterest"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-instagram"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-twitter"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="/atom.xml" target="_blank">
+				<i class="fa fa-rss"></i>
+			</a>
+		</li>
+			
+</ul>
+
+	</div>
+</nav>
+			
+		<!--main-->
+		<main>
+			<!--
+	时间：2018-11-17
+	描述：
+		插件名称：katelog.min.js
+		插件作者：KELEN
+		插件来源: https://github.com/KELEN/katelog
+-->
+
+	
+		<div class="layout-toc">
+			<div id="layout-toc">
+				<div class="k-catelog-list" id="catelog-list" data-title="文章目录"></div>
+			</div>
+		</div>
+
+		
+		<script src="/plugin/toc/katelog.min.js"></script>
+
+		
+	 
+
+<div class="layout-post">
+	<div id="layout-post">
+	<div class="article-title">
+		<i class="fa fa-paper-plane-o" aria-hidden="true"></i>
+		
+	<a href="/2015/12/25/Ubuntu-14-04-configure-Caffe/" itemprop="url">
+		Ubuntu 14.04 configure Caffe
+	</a>
+
+	</div>
+
+	<div class="article-meta">
+		<span>
+			<i class="fa fa-calendar"></i>
+			
+
+
+	发布于
+
+	<a href="/2015/12/25/Ubuntu-14-04-configure-Caffe/" itemprop="url">
+		<time datetime="2015-12-25T12:27:21.000Z" itemprop="datePublished">
+	  		2015-12-25
+	  </time>
+	</a>
+	&nbsp;
+
+
+
+
+
+			
+
+
+
+
+	更新于
+
+	<a href="/2015/12/25/Ubuntu-14-04-configure-Caffe/" itemprop="url">
+		<time datetime="2015-12-25T12:27:21.000Z" itemprop="dateUpdated">
+	  		2016-01-06
+	  </time>
+	</a> 
+
+
+
+		</span>
+		<span>
+			<i class="fa fa-tags"></i>
+			
+	
+		<a href="/tags/Ubuntu-14-04/" class=" ">
+			Ubuntu 14.04
+		</a>
+	
+		<a href="/tags/Caffe/" class=" ">
+			Caffe
+		</a>
+	
+		
+		</span>
+		
+		
+
+
+
+	</div>
+
+	<div class="article-content" id="article-content">
+		<p>These days, I am in the middle of the configuration of Caffe in Ubuntu14.04 due to the need of a small project. Here I want to write down the steps to show how to install it.</p>
+<p>If you follow the installation instructions of <a href="http://caffe.berkeleyvision.org/installation.html" target="_blank" rel="noopener">the official site</a>， I think you will be crazy. The documents are not in order. I succeeded to install it according to a <a href="http://blog.csdn.net/ubunfans/article/details/47724341" target="_blank" rel="noopener">Chinese blog</a>. Apart from simple translation, I will also add some contents.</p>
+<p>The whole process is as follows:</p>
+<h3 id="Environments"><a href="#Environments" class="headerlink" title="Environments:"></a>Environments:</h3><ul>
+<li><strong>Ubuntu 14.04 64bit</strong></li>
+<li><strong>8G Memory</strong> </li>
+<li><strong>GeForce GT 705 Graphics Card</strong> </li>
+<li><strong>CUDA 7.5</strong> </li>
+<li><strong>caffe from github</strong></li>
+</ul>
+<h3 id="Steps"><a href="#Steps" class="headerlink" title="Steps:"></a>Steps:</h3><ul>
+<li><strong>Install all the dependencies</strong></li>
+<li><strong>Install CUDA 7.5</strong></li>
+<li><strong>Install Atlas</strong></li>
+<li><strong>Install OpenCV</strong></li>
+<li><strong>Install Anaconda2</strong></li>
+<li><strong>Install Caffe</strong></li>
+<li><strong>Compile Python wrapper</strong></li>
+<li><strong>Test Caffe</strong></li>
+</ul>
+<h2 id="Install-all-the-dependencies"><a href="#Install-all-the-dependencies" class="headerlink" title="Install all the dependencies"></a>Install all the dependencies</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install build-essential  # basic requirement  </span><br><span class="line">sudo apt-get install libprotobuf-dev libleveldb-dev libsnappy-dev libopencv-dev libboost-all-dev libhdf5-serial-dev libgflags-dev libgoogle-glog-dev liblmdb-dev protobuf-compiler #required by caffe</span><br></pre></td></tr></table></figure>
+
+<h2 id="Install-CUDA-7-5"><a href="#Install-CUDA-7-5" class="headerlink" title="Install CUDA 7.5"></a>Install CUDA 7.5</h2><p>You can follow <a href="https://developer.nvidia.com/cuda-downloads" target="_blank" rel="noopener">the office website instructions</a> install it. Before you install the packages, you’d better check it whether the package is intact through md5.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">md5sum package_name</span><br></pre></td></tr></table></figure>
+
+<p>After you finish the installation, please reboot the computer.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo reboot</span><br></pre></td></tr></table></figure>
+
+<p>Later, we need to configure the environmental variable for cuda. </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">sudo gedit /etc/profile</span><br><span class="line"># add the content into /etc/profile</span><br><span class="line">export PATH=/usr/local/cuda/bin:$PATH</span><br><span class="line"></span><br><span class="line"># make the profile into effect</span><br><span class="line">source /etc/profile</span><br></pre></td></tr></table></figure>
+
+<p>At the same time, we need to add the library path to /etc/ld.so.conf.d folder. </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">cd /etc/ld.so.conf.d</span><br><span class="line">sudo vim cuda.conf</span><br><span class="line"># add the contents into cuda.conf file</span><br><span class="line">/usr/local/cuda/lib64</span><br><span class="line"></span><br><span class="line"># make the file into effect</span><br><span class="line">sudo ldconfig</span><br></pre></td></tr></table></figure>
+
+<p>Now we install <strong>CUDA SAMPLE</strong> </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">cd /usr/local/cuda/samples</span><br><span class="line">sudo make all -j4   # 4 means the number of your cpu cores</span><br><span class="line"># It will take about 10 mins to complete installation</span><br><span class="line"></span><br><span class="line">cd samples/bin/x86_64/linux/release</span><br><span class="line">./deviceQuery</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<ol>
+<li>./deviceQuery Starting…  </li>
+<li></li>
+<li>CUDA Device Query (Runtime API) version (CUDART static linking)  </li>
+<li></li>
+<li>Detected 1 CUDA Capable device(s)  </li>
+<li></li>
+<li>Device 0: “GeForce GTX 670”  </li>
+<li>CUDA Driver Version / Runtime Version          6.5 / 6.5  </li>
+<li>CUDA Capability Major/Minor version number:    3.0  </li>
+<li>Total amount of global memory:                 4095 MBytes (4294246400 bytes)  </li>
+<li>( 7) Multiprocessors, (192) CUDA Cores/MP:     1344 CUDA Cores  </li>
+<li>GPU Clock rate:                                1098 MHz (1.10 GHz)  </li>
+<li>Memory Clock rate:                             3105 Mhz  </li>
+<li>Memory Bus Width:                              256-bit  </li>
+<li>L2 Cache Size:                                 524288 bytes  </li>
+<li>Maximum Texture Dimension Size (x,y,z)         1D=(65536), 2D=(65536, 65536), 3D=(4096, 4096, 4096)  </li>
+<li>Maximum Layered 1D Texture Size, (num) layers  1D=(16384), 2048 layers  </li>
+<li>Maximum Layered 2D Texture Size, (num) layers  2D=(16384, 16384), 2048 layers  </li>
+<li>Total amount of constant memory:               65536 bytes  </li>
+<li>Total amount of shared memory per block:       49152 bytes  </li>
+<li>Total number of registers available per block: 65536  </li>
+<li>Warp size:                                     32  </li>
+<li>Maximum number of threads per multiprocessor:  2048  </li>
+<li>Maximum number of threads per block:           1024  </li>
+<li>Max dimension size of a thread block (x,y,z): (1024, 1024, 64)  </li>
+<li>Max dimension size of a grid size    (x,y,z): (2147483647, 65535, 65535)  </li>
+<li>Maximum memory pitch:                          2147483647 bytes  </li>
+<li>Texture alignment:                             512 bytes  </li>
+<li>Concurrent copy and kernel execution:          Yes with 1 copy engine(s)  </li>
+<li>Run time limit on kernels:                     Yes  </li>
+<li>Integrated GPU sharing Host Memory:            No  </li>
+<li>Support host page-locked memory mapping:       Yes  </li>
+<li>Alignment requirement for Surfaces:            Yes  </li>
+<li>Device has ECC support:                        Disabled  </li>
+<li>Device supports Unified Addressing (UVA):      Yes  </li>
+<li>Device PCI Bus ID / PCI location ID:           1 / 0  </li>
+<li>Compute Mode:  </li>
+<li>&lt; Default (multiple host threads can use ::cudaSetDevice() with device simultaneously) &gt;  </li>
+<li></li>
+<li>deviceQuery, CUDA Driver = CUDART, CUDA Driver Version = 6.5, CUDA Runtime Version = 6.5, NumDevs = 1, Device0 = GeForce GTX 670  </li>
+<li>Result = PASS  </li>
+</ol>
+</blockquote>
+<p>If you command window shows the similar result, that means your display card driver is installed successfully, otherwise there will be something wrong with your installation.</p>
+<h2 id="Install-Atlas"><a href="#Install-Atlas" class="headerlink" title="Install Atlas"></a>Install Atlas</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install libatlas-base-dev</span><br></pre></td></tr></table></figure>
+
+<h2 id="Install-OpenCV-2-4-10"><a href="#Install-OpenCV-2-4-10" class="headerlink" title="Install OpenCV-2.4.10"></a>Install OpenCV-2.4.10</h2><ol>
+<li>Download <a href="https://github.com/bearpaw/Install-OpenCV" target="_blank" rel="noopener">the installation script</a> </li>
+<li>Go to the <strong>Install-OpenCV/Ubuntu/2.4</strong> folder<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo sh ./opencv2_4_10.sh</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h2 id="Install-Anaconda2"><a href="#Install-Anaconda2" class="headerlink" title="Install Anaconda2"></a>Install Anaconda2</h2><ul>
+<li><p>Download <a href="https://www.continuum.io/downloads#all" target="_blank" rel="noopener"><strong>Anaaconda2</strong></a> from official website</p>
+</li>
+<li><p>Unzip and go to the folder</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo sh ./Anaconda2-2.4.1-Linux-x86_64.sh</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Add the <strong>Anaconda Library Path</strong> </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/ld.so.conf</span><br><span class="line"><span class="comment"># add the contents at the end of the file</span></span><br><span class="line">/home/your_name/anaconda2/lib</span><br><span class="line"><span class="comment"># make the file into effect</span></span><br><span class="line">sudo ldconfig</span><br><span class="line"></span><br><span class="line">sudo vim ~/.bashrc</span><br><span class="line"><span class="built_in">export</span> LD_LIBARY_PATH=<span class="string">"/home/your_username/anaconda2/lib:<span class="variable">$LD_LIBRARY_PATH</span>"</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> PATH=<span class="string">"/home/your_username/anaconda2/bin:<span class="variable">$PATH</span>"</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">source</span> ~/.bashrc</span><br><span class="line"></span><br><span class="line"><span class="comment">#test python version</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p><img src="../images/configCaffe/pyversion.png" alt="pythonversion"></p>
+<h2 id="Install-Caffe"><a href="#Install-Caffe" class="headerlink" title="Install Caffe"></a>Install Caffe</h2><ul>
+<li><p>Download <a href="https://github.com/BVLC/caffe" target="_blank" rel="noopener">Caffe</a>  from github</p>
+<p>then we need to download python dependencies</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> caffe-master/python</span><br><span class="line"><span class="keyword">for</span> req <span class="keyword">in</span> $(cat requirements.txt); </span><br><span class="line">   <span class="keyword">do</span> sudo pip install <span class="variable">$req</span>; <span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>make sure all the dependencies have installed properly, otherwise we will meet many issues when compiling caffe</p>
+</blockquote>
+</li>
+<li><p>Compile Caffe</p>
+</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> caffe-master</span><br><span class="line">cp Makefile.config.example Makefile.config</span><br><span class="line">sudo vim Makefile.config</span><br></pre></td></tr></table></figure>
+
+<p>We should make some changes to the configuration. </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Comment out these lines</span></span><br><span class="line">ANACONDA_HOME := $(HOME)/anaconda2  </span><br><span class="line">PYTHON_INCLUDE := $(ANACONDA_HOME)/include \  </span><br><span class="line">         $(ANACONDA_HOME)/include/python2.7 \  </span><br><span class="line">         $(ANACONDA_HOME)/lib/python2.7/site-packages/numpy/core/include \ </span><br><span class="line">         </span><br><span class="line"><span class="comment"># PYTHON_LIB := /usr/lib  </span></span><br><span class="line">PYTHON_LIB := $(ANACONDA_HOME)/lib</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># make sure your current foler is caffe-master</span></span><br><span class="line">sudo make all -j4</span><br><span class="line">sudo make <span class="built_in">test</span></span><br><span class="line">sudo runtest</span><br></pre></td></tr></table></figure>
+
+<h2 id="Compile-Python-Wrapper"><a href="#Compile-Python-Wrapper" class="headerlink" title="Compile Python Wrapper"></a>Compile Python Wrapper</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># make sure your current folder is caffe-master</span></span><br><span class="line">sudo make pycaffe</span><br></pre></td></tr></table></figure>
+
+<p>Ok, you do a very good job! Congratulations! You have finished all the steps to install caffe.  Now let’s make a small test to feel the performance of caffe.</p>
+<h2 id="Test"><a href="#Test" class="headerlink" title="Test"></a>Test</h2><p>We will use the mnist example to make a test. I also followed a <a href="http://www.cnblogs.com/denny402/p/5075490.html" target="_blank" rel="noopener">Chinese blog</a> </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo sh data/mnist/get_mnist.sh     <span class="comment"># get training data and testing data from the internet</span></span><br></pre></td></tr></table></figure>
+
+<p>You will see four files in the folder of data/mnist</p>
+<ul>
+<li>train-images-idx3-ubyte        (training samples) </li>
+<li>train-labels-idx1-ubyte          (training samples’ labels)</li>
+<li>t10k-images-idx3-ubyte         (testing samples) </li>
+<li>t10k-labels-idx1-ubyte           (testing samples’ labels)</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo sh examples/mnist/create_mnist.sh  <span class="comment"># transfer the format of original datasets</span></span><br><span class="line"></span><br><span class="line">sudo time sh examples/mnist/train_lenet.sh  <span class="comment"># make it run(cpu 13mins; GPU 4mins; GPU+cudnn 40 s)</span></span><br></pre></td></tr></table></figure>
+
+	
+	</div>
+	
+	<div id="current-post-cover" data-scr="/img/cart_cover.jpg"></div>
+
+	<!-- relate post, comment...-->
+	<div class="investment-container">
+		<div class="investment-header">
+			<div class="investment-title-1">
+				<div class="on">相关文章</div>
+				<div>评论</div>
+				<div>分享</div>
+			</div>
+			<div class="investment-title-2">	            
+				
+	<span>
+		<a href="javascript: window.scrollTo(0, 0);">返回顶部</a>
+		
+			<a href="/2016/01/02/fine-tune-ImageNet-Model-for-image-classification/" title="fine tune ImageNet Model for image classification" rel="prev">
+				&laquo;上一篇
+			</a>
+		
+		
+			<a href="/2015/12/22/Check-info-of-VGA-card-in-Linux/" title="Check info of VGA card in Linux" rel="next">
+				下一篇&raquo;
+			</a>
+			
+	</span>
+
+
+      		
+			</div>	
+		</div>
+		
+		<div class="investment-content">
+			<div class="investment-content-list">
+				
+
+<div class="relate-post">
+	
+		<ul>
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2019/06/16/about/index/" title>
+											
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								六月 16日, 2019				
+							</p>
+							<p class="relate-post-content">
+								I graduated from Nanjing Normal University, majoring in computer science and technology. Now I am applying for Master...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2019/06/16/about/index/" title>				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt>
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2018/05/03/Help-Help-How-to-Ask-Police-For-Help/" title="身份信息泄露，南京警方让回户籍所在地报警，户籍所在地警方让去支付宝所在的派出所报警，我到底该去哪里报警？？为什么求助那么困难？？">
+								身份信息泄露，南京警方让回户籍所在地报警，户籍所在地警方让去支付宝所在的派出所报警，我到底该去哪里报警？？为什么求助那么困难？？			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								五月 3日, 2018				
+							</p>
+							<p class="relate-post-content">
+								
+本人南京市溧水区石湫镇人，南京大学毕业，目前香港工作。前段时间遇到一件特别心塞的事情，身份信息被盗，总计盗款38000元左右，已报警，不立案。报警过程更加心塞。
+
+事情大概是这样的：
+身份被盗：我的身份证号码（未丢失）+银行卡号码（...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2018/05/03/Help-Help-How-to-Ask-Police-For-Help/" title="身份信息泄露，南京警方让回户籍所在地报警，户籍所在地警方让去支付宝所在的派出所报警，我到底该去哪里报警？？为什么求助那么困难？？">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="身份信息泄露，南京警方让回户籍所在地报警，户籍所在地警方让去支付宝所在的派出所报警，我到底该去哪里报警？？为什么求助那么困难？？">
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2017/04/12/美西之行七-Bryce-Canyon/" title="美西之行七 Bryce Canyon">
+								美西之行七 Bryce Canyon			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								四月 12日, 2017				
+							</p>
+							<p class="relate-post-content">
+								美西之行七  Bryce Canyon今天前往Bryce Canyon。
+路上的视野很开阔，颜色也较之前变得小清新了一些。
+看到一辆RV车，载着一家随处转悠
+可爱的大叔主动配合照相
+马场
+小木屋
+到达Bryce Canyon
+又开始浓...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2017/04/12/美西之行七-Bryce-Canyon/" title="美西之行七 Bryce Canyon">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="美西之行七 Bryce Canyon">
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2017/04/11/美西之旅六-Arches-Canyon/" title="美西之旅六 Arches Canyon">
+								美西之旅六 Arches Canyon			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								四月 11日, 2017				
+							</p>
+							<p class="relate-post-content">
+								美西之旅六  Arches Canyon离开blanding之后，驱车前往Arches Canyon,中文名为拱石国家公园。
+沿途的颜色开始变成橙黄
+路上碰到一只被撞死的小鹿，身体还是温热的。这在西部是经常发生的事情
+
+晚上住在一个叫...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2017/04/11/美西之旅六-Arches-Canyon/" title="美西之旅六 Arches Canyon">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="美西之旅六 Arches Canyon">
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2016/10/16/美西之旅五大峡谷到Blanding/" title="美西之旅五大峡谷到Blanding">
+								美西之旅五大峡谷到Blanding			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十月 16日, 2016				
+							</p>
+							<p class="relate-post-content">
+								美西之旅 Grand Canyon  –&gt; Blanding小镇
+离开Page之后，计划去羚羊谷，但是去羚羊谷要经过一片私人领地，造成景区价格偏高，朋友说他之前去过并没有网上照片拍的那么美，同时我们也要赶路，所以决定不再进入羚羊...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2016/10/16/美西之旅五大峡谷到Blanding/" title="美西之旅五大峡谷到Blanding">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="美西之旅五大峡谷到Blanding">
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2016/10/16/美西之旅四大峡谷/" title="美西之旅四大峡谷">
+								美西之旅四大峡谷			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								十月 16日, 2016				
+							</p>
+							<p class="relate-post-content">
+								美西之旅 大峡谷(Grand Canyon)进入国家公园第一站－－大峡谷。
+大峡谷模拟图
+我们直接坐蓝线到底，之后一站一个景点下来走
+大峡谷
+光影倒映在山谷，为其增添新色彩
+走走走，拍拍拍
+
+逛完南峡谷，准备驱车进入北峡谷。
+北峡谷入...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2016/10/16/美西之旅四大峡谷/" title="美西之旅四大峡谷">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="美西之旅四大峡谷">
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2016/09/11/美西之旅三-拉斯维加斯到大峡谷/" title="美西之旅三 拉斯维加斯到大峡谷">
+								美西之旅三 拉斯维加斯到大峡谷			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								九月 11日, 2016				
+							</p>
+							<p class="relate-post-content">
+								美西之旅 拉斯维加斯-&gt;大峡谷
+离开Vegas之后，我们驱车前往Grand Canyon大峡谷。Vegas外围的民宅，沙漠中的家园。每家每户门前都栽种着一颗绿树，即使再荒凉，心中依然绿树成荫。
+在去往大峡谷的中途会经过Hover...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2016/09/11/美西之旅三-拉斯维加斯到大峡谷/" title="美西之旅三 拉斯维加斯到大峡谷">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="美西之旅三 拉斯维加斯到大峡谷">
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2016/08/29/美西之旅之拉斯维加斯/" title="美西之旅之拉斯维加斯">
+								美西之旅之拉斯维加斯			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								八月 29日, 2016				
+							</p>
+							<p class="relate-post-content">
+								美西之旅 洛杉矶-&gt;拉斯维加斯
+早上9点多从洛杉矶出发，沿着15号公路向东北方向驶去，进入拉斯维加斯。从洛杉矶到拉斯维加斯大概4个小时车程，途中经过两个很大的OutLet，买买买忘了时间，大概到晚上12点多才到拉斯。原本计划只在...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2016/08/29/美西之旅之拉斯维加斯/" title="美西之旅之拉斯维加斯">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="美西之旅之拉斯维加斯">
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2016/08/29/美西之旅之洛杉矶/" title="美西之旅之洛杉矶">
+								美西之旅之洛杉矶			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								八月 29日, 2016				
+							</p>
+							<p class="relate-post-content">
+								美西之旅第一天  纽约-&gt;洛杉矶毕业前，一直在计划毕业旅行，想过去青海，西藏，云南，甚至还有意大利。最后敲定的却是美西。一部分原因是正好参加公司在纽约举行的培训，另外一部分原因是意大利不适合独行，又不太情愿跟团。
+去美西之前还做...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2016/08/29/美西之旅之洛杉矶/" title="美西之旅之洛杉矶">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="美西之旅之洛杉矶">
+							</a>
+						</div>
+					</li>											
+			
+			
+					<li>
+						<div class="relate-post-text">
+							<a class="relate-post-title" href="/2016/06/15/毕业事宜/" title="毕业事宜">
+								毕业事宜			
+							</a>
+							<p class="relate-post-date">
+								<i class="fa fa-calendar"></i>
+								六月 15日, 2016				
+							</p>
+							<p class="relate-post-content">
+								毕业事宜1.  材料交接1.1 北京计算中心项目
+文档
+数据
+代码
+环境配置安装请参考博客
+
+1.2 所投论文Latex源码
+2013 RSKT
+2014 RSKT
+2015 KBS
+2016 PAKDD
+2014 SEAL
+
+1.3...
+							</p>
+						</div>
+
+						<div class="relate-post-cover">
+							<a href="/2016/06/15/毕业事宜/" title="毕业事宜">				
+								
+								<img class="lazy" src="/img/placeholder.jpg" data-src="/img/cart_cover.jpg" alt="毕业事宜">
+							</a>
+						</div>
+					</li>											
+			
+			
+		</ul>
+	
+</div>	
+			</div>
+			<div class="investment-content-list">
+				<div class="layout-comment">
+
+	
+
+		
+
+			<!-- I don't know !!!-->
+			<div>Please check the comment setting in config.yml of hexo-theme-Annie!</div>
+			
+		
+		
+	
+
+</div>
+			</div>
+			<div class="investment-content-list">
+				<div class="layout-share">
+	
+	
+
+		
+			
+			<!-- socialShare share -->
+			<div class="social-share"></div>
+
+<!--  css & js -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css">
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+			
+		
+		
+	
+</div>
+
+
+			</div>
+		</div>	
+	</div>
+	</div>
+</div>
+
+
+
+	<!-- leancloud -->
+	<!--
+	时间：2018-11-27
+	描述：
+		文章访问量：visitors
+		文章喜欢量：likes	
+		文章排行榜：topNPost
+		其他得说明：
+			01-Cookie相关的函数 
+				https://blog.csdn.net/somehow1002/article/details/78511541（Author：somehow1002）
+			02-visitors相关的函数 
+				https://blog.csdn.net/u013553529/article/details/63357382（Author：爱博客大伯）
+				https://notes.doublemine.me/2015-10-21-为NexT主题添加文章阅读量统计功能.html（Author：夏末）
+			03-topNPost相关的函数
+				https://hoxis.github.io/hexo-next-read-rank.html（Author：hoxis）
+			04-likes相关的函数，
+				参考了01 & 02进行简单的设计与实现
+-->
+
+
+	
+
+
+<!-- show math formula -->
+
+
+
+	 
+	<script src="/plugin/clipboard/clipboard.js"></script>
+	<script>
+		// Copy code !
+	    function codePreprocessing() {
+	        $("#article-content .highlight").each(function() {
+
+	            $(this).wrap('<div id="post-code"></div>');
+
+	        })
+
+	        $("#article-content #post-code").each(function() {
+
+	            $(this).prepend('<nav class="copy-nav"><span><i class="code-language"></i></span></nav>');
+
+	        })
+
+	        $("#article-content .copy-nav").each(function() {
+	            var temp = $(this).next().attr('class'),
+	                language = ((temp.length > 9) && (temp != null)) ? temp.substr(10) : "none"; //why 9? Need to check language?
+
+	            $(this).find('.code-language').text(language);
+
+	            $(this).append('<span class="copy-btn"><i class="fa fa-copy" aria-hidden="true"></i></span>');
+
+	        });
+	    }
+
+		function codeCopy() {
+		    $('#article-content #post-code').each(function(i) {
+		        var codeCopyId = 'codeCopy-' + i;
+
+		        var codeNode = $(this).find('.code'),
+		            copyButton = $(this).find('.copy-btn');
+
+		        codeNode.attr('id', codeCopyId);
+		        copyButton.attr('data-clipboard-target-id', codeCopyId);
+		    })
+
+		    
+			var clipboard = new ClipboardJS('.copy-btn', {
+					target: function(trigger) {
+						return document.getElementById(trigger.getAttribute('data-clipboard-target-id'));
+					}
+		      	});
+
+			//pure js
+			function showTooltip(elem, msg) {		   
+				elem.setAttribute('aria-label', msg);
+				elem.setAttribute('class', 'copy-btn copy-status');
+				setTimeout(function() {
+					elem.setAttribute('class', 'copy-btn');
+				}, 2000);
+			}
+
+			clipboard.on('success', function(e) {
+			    e.clearSelection();
+			    console.info('Action:', e.action);		   
+			    console.info('Trigger:', e.trigger);
+			    showTooltip(e.trigger, 'Copied!');
+			    
+			});
+			clipboard.on('error', function(e) {
+			    console.error('Action:', e.action);
+			    console.error('Trigger:', e.trigger);
+			});
+		
+
+		}
+
+		if ($('.layout-post').length) {
+		    codePreprocessing();
+		    codeCopy();
+		} 
+	</script>
+
+
+
+
+
+<link rel="stylesheet" href="/plugin/fancybox/jquery.fancybox.css">
+<script src="/plugin/fancybox/jquery.fancybox.js"></script>
+
+<script type="text/javascript">
+	var titleID = $('.article-title a'),
+		imageID = $('.article-content img'),
+		videoID = $('.article-content video');
+
+	var postTitle = titleID.text() ? titleID.text() : "No post title!";
+
+	imageID.each(function() {
+		var imgPath = $(this).attr('src'),
+			imgTitle = $(this).attr('alt') ? $(this).attr('alt') : "No image description!";
+
+		//给每个匹配的<img>元素打包, 即添加父元素<a>
+		$(this).wrap('<a data-fancybox="gallery" data-caption=" 《 ' + postTitle + ' 》 ' + imgTitle + ' "  href=" ' + imgPath + ' "> </a>');
+	});
+
+	videoID.each(function() {
+		var videoPath = $(this).attr('src');
+
+		//给每个匹配的<img>元素打包, 即添加父元素<a>
+		$(this).wrap('<a data-fancybox href=" ' + videoPath + ' "> </a>');
+	});
+	//TODO：支持html5 video
+
+	if($('#layout-post').length) {
+		$('[data-fancybox="gallery"]').fancybox({
+			loop: true,
+			buttons: [
+				"zoom",
+				"share",
+				"slideShow",
+				"fullScreen",
+				//"download",
+				"thumbs",
+				"close"
+			],
+			protect: false
+		});
+	}
+</script>
+		</main>
+
+		<!--footer-->
+		<footer>
+	<div class="social">
+		<ul>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-github"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-weibo"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-pinterest"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-instagram"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="http://github.com/" target="_blank">
+				<i class="fa fa-twitter"></i>
+			</a>
+		</li>
+	
+		<li>
+			<a href="/atom.xml" target="_blank">
+				<i class="fa fa-rss"></i>
+			</a>
+		</li>
+			
+</ul>
+
+	</div>
+		
+	<div class="copyright">
+		<p>
+			 
+				&copy;2017 - 2019, content by Ping Li. All Rights Reserved.
+			
+			
+			
+
+	<!-- busuanzi -->
+	<!-- busuanzi -->
+
+		
+	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+	
+
+		<span id="busuanzi_container_page_pv">
+	  		本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+		</span>
+
+	
+
+
+
+
+		</p>
+		<p>
+			<a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> Theme <a href="https://github.com/Sariay/hexo-theme-Annie" title="Annie" target="_blank" rel="noopener">Annie</a> by Sariay.
+			<a href="javascript:zh_tran('s');" class="zh_click" id="zh_click_s">简体</a> 
+			<a href="javascript:zh_tran('t');" class="zh_click" id="zh_click_t">繁體</a>				
+		</p>
+	</div>		
+</footer>
+		
+	<!-- set '1' to show motto in all pages! -->
+
+	<script src="/plugin/motto/motto.js"></script>
+	
+	<script type="text/javascript">
+		$(".motto").html( getMingYanContent() );
+	</script>	
+
+
+
+
+	<!--
+	时间：2018-10-3
+	描述：
+		插件名称：hexo-generator-search-zip
+		插件来源: https://github.com/SuperKieran/hexo-generator-search-zip
+		代码参考：https://github.com/SuperKieran/TKL/blob/master/layout/_partial/search.ejs(Include: js & css)	
+-->
+<div class="popup search-popup local-search-popup">
+	<div class="local-search-container">
+		<span class="popup-btn-close">
+      		ESC
+   		</span>
+		<div class="local-search-header">
+			<div class="input-prompt">				
+			</div>
+			<input autocomplete="off" placeholder="Search..." type="text" id="local-search-input">
+		</div>
+		<div class="local-search-body">
+			<div id="local-search-output"></div>
+		</div>
+		<div class="local-search-footer">
+			<div class="topN-post">				
+				
+								
+			</div>
+		</div>
+	</div>
+</div>
+
+<script src="/plugin/search/ziploader.js"></script>
+<script src="/plugin/search/search.js"></script>
+
+<script type="text/javascript">
+	var search_path = 'search.json',
+		zip_Path = '/',
+		version_Path = '/',
+		input_Trigger = 'auto',
+		top_N = '2';
+
+	themeLocalSearch({
+		search_path, 
+		zip_Path, 
+		version_Path, 
+		input_Trigger, 
+		top_N
+	});
+</script>
+
+
+<!-- love effect -->
+
+	<script src="/plugin/love/love.js"></script>
+
+
+<!-- back to top -->
+
+	
+	<div id="totop">
+  		<a href="javascript:;" name="TOTOP" class="fa fa-arrow-up"></a>
+	</div>
+
+
+
+
+<!-- site analysis -->
+
+
+	<!-- site-analysis -->
+	
+	
+	
+	
+	
+ 
+
+<script src="/plugin/vibrant/vibrant.js"></script>
+<script src="/plugin/chinese/chinese.js"></script>
+<script src="/plugin/imgLazyLoader/yall.min.js"></script>
+<script src="/plugin/imgResize/jquery.resizeimagetoparent.min.js"></script>
+<script src="/plugin/nicescroll/jquery.nicescroll.js"></script>
+<script src="/js/resizediv.js"></script>
+<script src="/js/main.js"></script>
+	</body>	
+</html>
